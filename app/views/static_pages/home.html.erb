@@ -8,11 +8,14 @@
       <style>
       html, body, #map-canvas {
         height: 100%;
-        margin: 0px;
-        padding: 0px;
+        margin: 1px;
+        padding: 5px;
+        float: left;
       }
 
-      #map_canvas{float:left;width:70%; height:100%;}
+      #map_canvas{float:left; 
+        height:100%;}
+      
       #panel {
         position: absolute;
         top: 5px;
@@ -26,9 +29,11 @@
 
       #directionsPanel {
         float:left;
-        width:28%;
+        width:25%;
         height:100%;
-        padding-left:5px;
+        
+        padding-left: 5px;
+        
       }
       .controls {
         margin-top: 16px;
@@ -102,7 +107,6 @@
      
       function initialize() {
 
-       
         geocoder = new google.maps.Geocoder();
         directionsDisplay = new google.maps.DirectionsRenderer();
         var philadelphia = new google.maps.LatLng(39.95,-75.1667);
@@ -321,7 +325,7 @@
       
       function activeSettings(){
       /* set properties */
-      document.getElementById("map-canvas").style.width="70%";
+      document.getElementById("map-canvas").style.width="65%";
       document.getElementById("directionsPanel").style.display="block";
       document.getElementById("total").style.display="block";  
       
@@ -341,6 +345,8 @@
   </head>
 
   <body>
+    <h1> Welcome to Vamanos!</h1>
+
     <div>
       <br>
       <strong>Enter origin: </strong>
@@ -358,8 +364,8 @@
           <option value="4">
         </datalist>
     </div>
-    <div id="map-canvas"></div>
-    <div id="directionsPanel">
+    <div id="map-canvas" style="width: 70%; position: relative; overflow: hidden;"></div>
+    <div id="directionsPanel" style = "display:block; direction:ltr;">
     <p><span id="total"></span></p>
     </div>
   </body>
