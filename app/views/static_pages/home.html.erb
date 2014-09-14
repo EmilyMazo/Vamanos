@@ -1,26 +1,18 @@
 <!DOCTYPE html>
+
 <html>
   <head>
-    <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr5oNsZqX2C8IsZYcjAjnQ_yLMPRKagNE">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: { lat: -34.397, lng: 150.644},
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
   </head>
   <body>
-<div id="map-canvas"></div>
+    <div>
+      <br>
+      <strong>Enter origin</strong>
+      <input type="text" name="start" id="start" style="width:250px;" onkeyup="calcRoute()">    
+      <strong>Enter destination</strong>
+      <input type="text" name="end" id="end" style="width:250px;" onkeyup="calcRoute()">    
+    </div>
+    <div id='map_canvas' style="width: 100%; position: relative; overflow: hidden; -webkit-transform: translateZ(0px); background-color: rgb(229, 227, 223);"=>
+    </div>
   </body>
 </html>
 
