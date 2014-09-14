@@ -188,11 +188,10 @@
             position: place.geometry.location
           });
           ranking = place.rating;
-          price = place.price_level;
-      google.maps.event.addListener(marker, 'click', function() {
+      /*google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
-          });
+          });*/
           }});
 
       /*markers.push(marker);*/
@@ -216,7 +215,7 @@
     }
      
       var infowindow = new google.maps.InfoWindow({
-          content: topPlace.name, 
+          content: topPlace.name
 
       });
       //});
@@ -226,6 +225,7 @@
         icon: image,
         title: topPlace.name,
         position: topPlace.geometry.location,
+        photo: topPlace.photo,
         title: 'Vamanos!'
       });
       google.maps.event.addListener(marker, 'click', function() {
