@@ -1,3 +1,4 @@
 class StaticPagesController < ApplicationController
-	get "static_pages/home"
+	def home
+	end
 end
