@@ -21,6 +21,7 @@
 
       div {
         color: white;
+
       }
 
       input {
@@ -28,6 +29,11 @@
       }
 
       h1 {
+        text-align: center;
+        color: white;
+      }
+
+      h3 {
         text-align: center;
         color: white;
       }
@@ -233,7 +239,7 @@
 
       bounds.extend(place.geometry.location);
     }
-      var contentString = 'Vamanos!' + contentString + "Let's Go!"
+      var contentString = 'Vamanos!' + contentString + "Let's Go!";
      
       var infowindow = new google.maps.InfoWindow({
           content:  contentString
@@ -246,13 +252,13 @@
         icon: image,
         title: topPlace.name,
         position: topPlace.geometry.location,
-        photo: topPlace.photo,
       });
       google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
       });
      map.fitBounds(bounds);
      calcRoute();
+     defaultSettings();
    }); /*ends add event listener*/
   
    // [END region_getplaces]
@@ -366,6 +372,7 @@
 
   <body>
     <h1> Welcome to Vamanos!</h1>
+    <h3>Submit origin and destination of your trip for directions, then add a waypoint by searching for "coffee", "pizza", "hotel", or anything your need on the way! Let's go!</h3>
 
     <div>
       <br>
@@ -378,7 +385,7 @@
       <input type="button" value="Submit" onClick="calcRoute();"/>  
      
     </div>
-    <div id="map-canvas" style="width: 70%; position: relative; overflow: hidden;"></div>
+    <div id="map-canvas" style="width: 100%; position: relative; overflow: hidden;"></div>
     <div id="directionsPanel" style = "display:block; direction:ltr;">
     <p><span id="total"></span></p>
     </div>
