@@ -1,6 +1,4 @@
 
-<script> 
-
 var rendererOptions = {
     draggable: true
   };
@@ -88,15 +86,3 @@ var rendererOptions = {
 
     }
   
-</script>
-
-
-
-
-
-
-
-
-
-                                                                                                                     <script>(function() {with (this[2]) {with (this[1]) {with (this[0]) {return function(event) {calcRoute()
-};}}}})</script>
