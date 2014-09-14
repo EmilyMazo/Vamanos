@@ -213,9 +213,10 @@
 
       bounds.extend(place.geometry.location);
     }
+      var contentString = topPlace.name
      
       var infowindow = new google.maps.InfoWindow({
-          content: topPlace.name
+          content: 'Vamanos!' + contentString + "Let's Go!"
 
       });
       //});
@@ -226,7 +227,6 @@
         title: topPlace.name,
         position: topPlace.geometry.location,
         photo: topPlace.photo,
-        title: 'Vamanos!'
       });
       google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
