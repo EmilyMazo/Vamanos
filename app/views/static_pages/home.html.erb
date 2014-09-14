@@ -1,19 +1,27 @@
-<head>
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr5oNsZqX2C8IsZYcjAjnQ_yLMPRKagNE&amp;sensor=SET_TO_true_OR_false">
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr5oNsZqX2C8IsZYcjAjnQ_yLMPRKagNE">
     </script>
-</head>
-
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
-
-<div id="map-canvas" style="height:400px; width:600px;"></div>
-<script>
-    function initialise() { 
-        /* All of our map settings are going here */    
-    }
-    google.maps.event.addDomListener(window, 'load', initialise); // Execute our 'initialise' function once the page has loaded. 
-</script>
-
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: { lat: -34.397, lng: 150.644},
+          zoom: 8
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+<div id="map-canvas"></div>
+  </body>
+</html>
 
 <!-- API KEY : AIzaSyAr5oNsZqX2C8IsZYcjAjnQ_yLMPRKagNE -->
