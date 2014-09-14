@@ -92,7 +92,7 @@
       var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
       var directionsService = new google.maps.DirectionsService();
       var map;
-     
+      var geocoder;
 
     
 
@@ -101,7 +101,7 @@
       function initialize() {
 
        
-
+        geocoder = new google.maps.Geocoder();
         directionsDisplay = new google.maps.DirectionsRenderer();
         var philadelphia = new google.maps.LatLng(39.95,-75.1667);
         var myOptions = {
@@ -123,6 +123,8 @@
 
         var searchBox = new google.maps.places.SearchBox(
         /** @type {HTMLInputElement} */(input));
+
+        
 
         google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
           computeTotalDistance(directionsDisplay.directions);
@@ -146,6 +148,8 @@
       }
       // For each place, get the icon, place name, and location.
       markers = [];
+      var topRank;
+      var topPlace;
       var bounds = new google.maps.LatLngBounds();
       for (var i = 0, place; place = places[i]; i++) {
         var image = {
@@ -156,19 +160,54 @@
           scaledSize: new google.maps.Size(25, 25)
         };
 
-       // Create a marker for each place.
+      /* // Create a marker for each place.
       var marker = new google.maps.Marker({
         map: map,
         icon: image,
         title: place.name,
         position: place.geometry.location
-      });
+      });*/
 
-      markers.push(marker);
+      var request = {
+          placeId: places[i]
+        };
+
+      var service = new google.maps.places.PlacesService(map);
+      var ranking;
+      service.getDetails(request, function(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+          });
+          ranking = place.rating;
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(place.name);
+            infowindow.open(map, this);
+          });
+          }});
+
+      /*markers.push(marker);*/
+
+      if (i == 0) {
+        topRank = ranking;
+        topPlace = places[i];
+      }
+
+      if (ranking > topRank) {
+        topPlace = places[i];
+        topRank = ranking;
+      }
+       
 
       bounds.extend(place.geometry.location);
     }
-
+    var marker = new google.maps.Marker({
+        map: map,
+        icon: image,
+        title: topPlace.name,
+        position: topPlace.geometry.location
+      });
      map.fitBounds(bounds);
    }); /*ends add event listener*/
 
@@ -193,10 +232,10 @@
         }
       
 
-        var start = document.getElementById("start").value;
-        var end = document.getElementById("end").value;
+        var start = document.getElementById("start").value; //Originally was start.
+        var end = document.getElementById("end").value; //Add var and change back to end
         var request = {
-            origin:start, 
+            origin:start, // CHANGE THIS BACK TO START 
             destination:end,
             travelMode: google.maps.DirectionsTravelMode.DRIVING
         };
@@ -205,13 +244,31 @@
             directionsDisplay.setDirections(response);
           }
         });
+
+        var startLL = null;
+        var endLL = null;
+
       
+      geocoder.geocode({'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          startLL = results[0].geometry.location; // use latlng here ..., e.g.:
+        }
+      }); 
+
+
+
+      geocoder.geocode({'address': address}, function(results, status){
+        if (status == google.maps.GeocoderStatus.OK) {
+          endLL = results[0].geometry.location; // use latlng here ..., e.g.:
+        }
+      }); 
+
       var defaultBounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(start),
-            new google.maps.LatLng(end));
+            new google.maps.LatLng(startLL),
+            new google.maps.LatLng(endLL));
         map.fitBounds(defaultBounds); 
 
-      }
+      };
       
     function computeTotalDistance(result) {
       var total = 0;
