@@ -8,11 +8,13 @@
       <style>
       html, body, #map-canvas {
         height: 100%;
-        margin: 5px;
+        margin: 1px;
         padding: 5px;
+        float: left;
       }
 
-      #map_canvas{float:left;width:65%; height:100%;}
+      #map_canvas{float:left; 
+        height:100%;}
       
       #panel {
         position: absolute;
@@ -26,9 +28,11 @@
       }
 
       #directionsPanel {
-        float:right;
+        float:left;
         width:25%;
         height:100%;
+        
+        padding-left: 5px;
         
       }
       .controls {
@@ -103,7 +107,6 @@
      
       function initialize() {
 
-       
         geocoder = new google.maps.Geocoder();
         directionsDisplay = new google.maps.DirectionsRenderer();
         var philadelphia = new google.maps.LatLng(39.95,-75.1667);
@@ -342,6 +345,8 @@
   </head>
 
   <body>
+    <h1> Welcome to Vamanos!</h1>
+
     <div>
       <br>
       <strong>Enter origin: </strong>
@@ -360,8 +365,8 @@
           <option value="4">
         </datalist>
     </div>
-    <div id="map-canvas"></div>
-    <div id="directionsPanel">
+    <div id="map-canvas" style="width: 70%; position: relative; overflow: hidden;"></div>
+    <div id="directionsPanel" style = "display:block; direction:ltr;">
     <p><span id="total"></span></p>
     </div>
   </body>
