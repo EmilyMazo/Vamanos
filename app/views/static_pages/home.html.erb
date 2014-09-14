@@ -19,7 +19,7 @@
         
       }
 
-      div {
+      #enter {
         color: white;
 
       }
@@ -40,7 +40,9 @@
 
       #map_canvas{float:left; 
         width:100%;
-        height:100%;}
+        height:100%;
+      }
+
       
       #panel {
         position: absolute;
@@ -126,6 +128,7 @@
       var geocoder;
       var topPlace;
       var indicatedPrice;
+      var infowindow; 
 
     
 
@@ -239,13 +242,13 @@
 
       bounds.extend(place.geometry.location);
     }
-      var contentString = 'Vamanos!' + contentString + "Let's Go!";
+      var contentString = topPlace.name + ' ' + 'Lets Go!'
      
-      var infowindow = new google.maps.InfoWindow({
-          content:  contentString
+      var infowindow = new google.maps.InfoWindow();
 
-      });
-      //});
+      var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
       
     var marker = new google.maps.Marker({
         map: map,
@@ -376,9 +379,9 @@
 
     <div>
       <br>
-      <strong>Enter origin: </strong>
+      <strong id="enter">Enter origin: </strong>
       <input type="text" name="start" id="start" style="width:250px;" >    
-      <strong>Enter destination: </strong>
+      <strong id="enter">Enter destination: </strong>
       <input type="text" name="end" id="end" style="width:250px;" >  
       
       <input id="pac-input" class="controls" type="text" placeholder="Enter Via Point">
