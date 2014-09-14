@@ -2,19 +2,123 @@
 
 <html>
   <head>
-    <script type="text/javascript" src="../../assets/javascripts/directions.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+      <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+      </style>
+
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+      <script type="text/javascript"> 
+
+    var rendererOptions = {
+        draggable: true
+      };
+      var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
+      var directionsService = new google.maps.DirectionsService();
+      var map;
+
+     
+      function initialize() {
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var newyork = new google.maps.LatLng(40.773887,-73.980238);
+        var myOptions = {
+          zoom:13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          center: newyork
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+        directionsDisplay.setMap(map);
+
+        google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+          computeTotalDistance(directionsDisplay.directions);
+        });
+        
+       /* calcRoute();*/
+      
+      defaultSettings();
+      
+      }
+      
+      function calcRoute() {
+        
+        
+      if (document.getElementById("start").value != "") {
+        activeSettings();
+      }
+      else{
+        defaultSettings();
+        }
+      
+
+        var start = document.getElementById("start").value;
+        var end = document.getElementById("end").value;
+        var request = {
+            origin:start, 
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          }
+        });
+      
+
+      }
+      
+      
+      
+      function defaultSettings(){
+      /* set properties */
+      document.getElementById("map-canvas").style.width="100%";
+        }
+      
+      function activeSettings(){
+      /* set properties */
+      document.getElementById("map-canvas").style.width="100%";
+      
+        }
+      
+      window.onload=function(){
+        initialize();
+
+        }
+      
+    </script>
+    <script>(function() {with (this[2]) {with (this[1]) {with (this[0]) {return function(event) {calcRoute()
+      };}}}})</script>
+
+
   </head>
+
   <body>
     <div>
       <br>
       <strong>Enter origin</strong>
-      <input type="text" name="start" id="start" style="width:250px;" onkeyup="calcRoute()">    
+      <input type="text" name="start" id="start" style="width:250px;" >    
       <strong>Enter destination</strong>
-      <input type="text" name="end" id="end" style="width:250px;" onkeyup="calcRoute()">    
+      <input type="text" name="end" id="end" style="width:250px;" >  
+      <input type="button" value="Submit" onClick="calcRoute();"/>  
     </div>
-    <div id='map_canvas' style="width: 100%; position: relative; overflow: hidden; -webkit-transform: translateZ(0px); background-color: rgb(229, 227, 223);"=>
-    </div>
-  </body>
+    <div id="map-canvas"></div>
+    
 </html>
 
 <!-- API KEY : AIzaSyAr5oNsZqX2C8IsZYcjAjnQ_yLMPRKagNE -->
